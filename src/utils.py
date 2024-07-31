@@ -129,6 +129,7 @@ def get_five_transactions_in_dict(top_transactions_dict: list[dict]) -> dict:
 
 
 def get_user_currencies(json_file_path: str) -> Any:
+    """Функция получает из файла коды валют для последующего их использования в запросах"""
     with open(json_file_path, "r", encoding="utf-8") as file:
         logger.info("Загружаем данные из файла в переменную settings")
         settings = json.load(file)
@@ -138,6 +139,7 @@ def get_user_currencies(json_file_path: str) -> Any:
 
 
 def get_tickers(json_file_path: str) -> Any:
+    """Функция получает из файла тикерный символ акций для последующего их использования в запросах"""
     with open(json_file_path, "r", encoding="utf-8") as file:
         logger.info("Загружаем данные из файла в переменную settings")
         settings = json.load(file)
@@ -148,7 +150,7 @@ def get_tickers(json_file_path: str) -> Any:
 
 
 def get_currency_rates(user_currencies: list) -> dict:
-    """Функция делает запрос в API и возвращает курсы валют в нужном формате"""
+    """Функция делает запрос к стороннему API и возвращает курсы валют в нужном формате"""
     logger.info("Делаем запрос в API для получения курсов валют")
     currency_rates = []
     for currency in user_currencies:
@@ -165,7 +167,7 @@ def get_currency_rates(user_currencies: list) -> dict:
 
 
 def get_stock_prices(url: Any, tickers: list[dict]) -> dict:
-    """Функция делает запрос в API и возвращает данные по акциям в нужном формате"""
+    """Функция делает запрос к стороннему API и возвращает данные по акциям в нужном формате"""
     logger.info("Делаем запрос в API для получения данных по акциям")
     context = ssl.create_default_context(cafile=certifi.where())
 

@@ -3,7 +3,7 @@ from typing import Any
 
 from src.reports import spending_by_category, transaction_xlsx_utils
 from src.services import transactions_by_user_choice
-from src.utils import logger, get_greeting_by_datetime, get_transactions_excel, excel_file_path, get_request_period
+from src.utils import excel_file_path, get_greeting_by_datetime, get_request_period, get_transactions_excel, logger
 from src.views import date_time_str, get_final_report
 
 
@@ -12,7 +12,7 @@ def main() -> Any:
     # Главная страница
     print("\nГЛАВНАЯ\n")
 
-    logger.info(f"Выводим приветствие в зависимости от времени суток пользователя")
+    logger.info("Выводим приветствие в зависимости от времени суток пользователя")
     # Текущее время в формате YYYY-MM-DD HH:MM:SS
     print(get_greeting_by_datetime(date_time_str))
     # Получаем итоговый отчет
