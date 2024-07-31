@@ -133,7 +133,7 @@ def get_user_currencies(json_file_path: str) -> Any:
     with open(json_file_path, "r", encoding="utf-8") as file:
         logger.info("Загружаем данные из файла в переменную settings")
         settings = json.load(file)
-        logger.info("Получаем значение по ключу \"user_currencies\"")
+        logger.info('Получаем значение по ключу "user_currencies"')
     user_currencies = settings.get("user_currencies")
     return user_currencies
 
@@ -144,7 +144,7 @@ def get_tickers(json_file_path: str) -> Any:
         logger.info("Загружаем данные из файла в переменную settings")
         settings = json.load(file)
 
-    logger.info("Получаем значение по ключу \"user_stocks\"")
+    logger.info('Получаем значение по ключу "user_stocks"')
     tickers = settings.get("user_stocks")
     return tickers
 

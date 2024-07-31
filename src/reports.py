@@ -10,6 +10,7 @@ from src.utils import logger
 
 def save_report_to_file(filename: str = None) -> Any:
     """Декоратор для функции, сохраняет результат в файл my_report.json"""
+
     def decorator(func: Any) -> Any:
         @functools.wraps(func)
         def wrapper(last_three_months: pd.DataFrame) -> Any:

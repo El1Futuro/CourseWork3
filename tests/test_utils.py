@@ -1,18 +1,11 @@
-import unittest
-from unittest.mock import patch, mock_open, MagicMock
-import pandas as pd
 import json
+import unittest
+from unittest.mock import MagicMock, mock_open, patch
 
-from src.utils import (
-    get_transactions_excel,
-    get_greeting_by_datetime,
-    get_transactions_in_period,
-    get_request_period,
-    get_five_transactions_in_dict,
-    get_user_currencies,
-    get_tickers,
-    get_currency_rates,
-   )
+import pandas as pd
+
+from src.utils import (get_currency_rates, get_five_transactions_in_dict, get_greeting_by_datetime, get_request_period,
+                       get_tickers, get_transactions_excel, get_transactions_in_period, get_user_currencies)
 
 
 class TestUtils(unittest.TestCase):
@@ -30,15 +23,11 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(result, {"greeting": "Добрый вечер"})
 
     def test_get_transactions_in_period(self):
-        test_df = pd.DataFrame({
-            "Дата операции": ["23.02.2019 12:00:00", "24.02.2019 12:00:00"],
-            "Сумма операции": [100, 200]
-        })
+        test_df = pd.DataFrame(
+            {"Дата операции": ["23.02.2019 12:00:00", "24.02.2019 12:00:00"], "Сумма операции": [100, 200]}
+        )
         result = get_transactions_in_period("23.02.2019", test_df)
-        expected_result = pd.DataFrame({
-            "Дата операции": ["23.02.2019 12:00:00"],
-            "Сумма операции": [100]
-        })
+        expected_result = pd.DataFrame({"Дата операции": ["23.02.2019 12:00:00"], "Сумма операции": [100]})
         expected_result["Дата операции"] = pd.to_datetime(expected_result["Дата операции"], format="%d.%m.%Y %H:%M:%S")
         self.assertTrue(result.equals(expected_result))
 
@@ -49,16 +38,24 @@ class TestUtils(unittest.TestCase):
 
     def test_get_five_transactions_in_dict(self):
         transactions = [
-            {"Дата операции": pd.Timestamp("2019-02-23"), "Сумма операции": 100, "Категория": "Еда",
-             "Описание": "Рис"},
-            {"Дата операции": pd.Timestamp("2019-02-24"), "Сумма операции": 200, "Категория": "Транспорт",
-             "Описание": "Метро"}
+            {
+                "Дата операции": pd.Timestamp("2019-02-23"),
+                "Сумма операции": 100,
+                "Категория": "Еда",
+                "Описание": "Рис",
+            },
+            {
+                "Дата операции": pd.Timestamp("2019-02-24"),
+                "Сумма операции": 200,
+                "Категория": "Транспорт",
+                "Описание": "Метро",
+            },
         ]
         result = get_five_transactions_in_dict(transactions)
         expected_result = {
             "top_transactions": [
                 {"date": "23.02.2019", "amount": 100, "category": "Еда", "description": "Рис"},
-                {"date": "24.02.2019", "amount": 200, "category": "Транспорт", "description": "Метро"}
+                {"date": "24.02.2019", "amount": 200, "category": "Транспорт", "description": "Метро"},
             ]
         }
         self.assertEqual(result, expected_result)

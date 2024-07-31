@@ -21,8 +21,11 @@ def main() -> Any:
     # Страница сервиса
     print("\nСЕРВИСЫ\n")
     search_string = input("Введите слово для поиска: ")
-    result_sort = json.dumps(transactions_by_user_choice(search_string, get_transactions_excel(excel_file_path)),
-                             indent=4, ensure_ascii=False)
+    result_sort = json.dumps(
+        transactions_by_user_choice(search_string, get_transactions_excel(excel_file_path)),
+        indent=4,
+        ensure_ascii=False,
+    )
 
     if not result_sort:
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации.")
@@ -35,8 +38,9 @@ def main() -> Any:
     # Страница отчета
     print("\nОТЧЕТЫ\n")
     search_category = input("Введите наименование категории для фильтрации: ")
-    spending_by_category_result = spending_by_category(get_transactions_excel(excel_file_path), search_category,
-                                                       get_request_period())
+    spending_by_category_result = spending_by_category(
+        get_transactions_excel(excel_file_path), search_category, get_request_period()
+    )
     print(f"Данные переданы в файл: {"my_report.json"}")
     transaction_list = transaction_xlsx_utils(spending_by_category_result)
     with open("my_report.json", "w", encoding="utf-8") as f:

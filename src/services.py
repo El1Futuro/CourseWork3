@@ -14,9 +14,7 @@ def transactions_by_user_choice(search_string: str, excel_list: list) -> list[di
         dicts
         for dicts in excel_list
         if (isinstance(dicts.get("Описание"), str) and search_string.lower() in dicts.get("Описание", "").lower())
-        or (
-            isinstance(dicts.get("Категория"), str) and search_string.lower() in dicts.get("Категория", "").lower()
-        )
+        or (isinstance(dicts.get("Категория"), str) and search_string.lower() in dicts.get("Категория", "").lower())
     ]
     logger.info(f"Найдено {len(filtered_list)} транзакций по запросу '{search_string}'")
     if filtered_list:
