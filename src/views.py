@@ -6,8 +6,16 @@ from typing import Any
 import pandas as pd
 from dotenv import load_dotenv
 
-from src.utils import (get_currency_rates, get_five_transactions_in_dict, get_greeting_by_datetime, get_stock_prices,
-                       get_tickers, get_user_currencies, logger, transactions_in_period)
+from src.utils import (
+    get_currency_rates,
+    get_five_transactions_in_dict,
+    get_greeting_by_datetime,
+    get_stock_prices,
+    get_tickers,
+    get_user_currencies,
+    logger,
+    transactions_in_period,
+)
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")

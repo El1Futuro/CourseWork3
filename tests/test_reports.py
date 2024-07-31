@@ -78,9 +78,9 @@ def excel_data() -> list:
     ]
 
 
-def test_spending_by_category_empty_list():
+def test_spending_by_category_empty_list() -> None:
     # Пустой список для тестирования
-    excel_data = []
+    excel_data: list = []
     excel_list = pd.DataFrame(excel_data)
 
     # Вызов функции spending_by_category с пустым списком
@@ -90,7 +90,7 @@ def test_spending_by_category_empty_list():
     assert result.empty
 
 
-def test_spending_by_category(excel_data):
+def test_spending_by_category(excel_data: list) -> None:
     # Преобразуем данные в DataFrame
     excel_list = pd.DataFrame(excel_data)
     excel_list["Дата операции"] = pd.to_datetime(excel_list["Дата операции"], format="%d.%m.%Y %H:%M:%S")
@@ -103,9 +103,9 @@ def test_spending_by_category(excel_data):
     assert result["Сумма операции"].sum() == -300
 
 
-def test_transaction_xlsx_utils_empty_list():
+def test_transaction_xlsx_utils_empty_list() -> None:
     # Пустой список для тестирования
-    excel_data = []
+    excel_data: list = []
     excel_list = pd.DataFrame(excel_data)
 
     # Вызов функции spending_by_category с пустым списком
@@ -115,7 +115,7 @@ def test_transaction_xlsx_utils_empty_list():
     assert list_transactions.empty
 
 
-def test_transaction_xlsx_utils(excel_data):
+def test_transaction_xlsx_utils(excel_data: list) -> None:
     # Преобразуем данные в DataFrame
     excel_list = pd.DataFrame(excel_data)
 

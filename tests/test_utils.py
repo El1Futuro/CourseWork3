@@ -1,28 +1,37 @@
 import json
 import unittest
+from typing import Any
 from unittest.mock import MagicMock, mock_open, patch
 
 import pandas as pd
 
-from src.utils import (get_currency_rates, get_five_transactions_in_dict, get_greeting_by_datetime, get_request_period,
-                       get_tickers, get_transactions_excel, get_transactions_in_period, get_user_currencies)
+from src.utils import (
+    get_currency_rates,
+    get_five_transactions_in_dict,
+    get_greeting_by_datetime,
+    get_request_period,
+    get_tickers,
+    get_transactions_excel,
+    get_transactions_in_period,
+    get_user_currencies,
+)
 
 
 class TestUtils(unittest.TestCase):
 
     @patch("pandas.read_excel")
-    def test_get_transactions_excel(self, mock_read_excel):
+    def test_get_transactions_excel(self, mock_read_excel: Any) -> None:
         mock_df = pd.DataFrame({"Дата операции": ["2019-02-23 12:00:00"], "Сумма операции": [100]})
         mock_read_excel.return_value = mock_df
 
         result = get_transactions_excel("excel_file_path")
         self.assertTrue(result.equals(mock_df))
 
-    def test_get_greeting_by_datetime(self):
+    def test_get_greeting_by_datetime(self) -> None:
         result = get_greeting_by_datetime("2023-10-01 19:00:00")
         self.assertEqual(result, {"greeting": "Добрый вечер"})
 
-    def test_get_transactions_in_period(self):
+    def test_get_transactions_in_period(self) -> None:
         test_df = pd.DataFrame(
             {"Дата операции": ["23.02.2019 12:00:00", "24.02.2019 12:00:00"], "Сумма операции": [100, 200]}
         )
@@ -32,11 +41,11 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(result.equals(expected_result))
 
     @patch("builtins.input", return_value="23.02.2019")
-    def test_get_request_period(self, mock_ctypes):
+    def test_get_request_period(self, mock_ctypes: Any) -> None:
         result = get_request_period()
         self.assertEqual(result, pd.to_datetime("23.02.2019", format="%d.%m.%Y"))
 
-    def test_get_five_transactions_in_dict(self):
+    def test_get_five_transactions_in_dict(self) -> None:
         transactions = [
             {
                 "Дата операции": pd.Timestamp("2019-02-23"),
@@ -61,17 +70,17 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     @patch("builtins.open", new_callable=mock_open, read_data=json.dumps({"user_currencies": ["USD", "EUR"]}))
-    def test_get_user_currencies(self, mock_ctypes):
+    def test_get_user_currencies(self, mock_ctypes: Any) -> None:
         result = get_user_currencies("json_file_path")
         self.assertEqual(result, ["USD", "EUR"])
 
     @patch("builtins.open", new_callable=mock_open, read_data=json.dumps({"user_stocks": ["AAPL", "MSFT"]}))
-    def test_get_tickers(self, mock_ctypes):
+    def test_get_tickers(self, mock_ctypes: Any) -> None:
         result = get_tickers("json_file_path")
         self.assertEqual(result, ["AAPL", "MSFT"])
 
     @patch("requests.get")
-    def test_get_currency_rates(self, mock_get):
+    def test_get_currency_rates(self, mock_get: Any) -> None:
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"rates": {"RUB": 75}}
