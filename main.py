@@ -42,6 +42,3 @@ def main() -> Any:
     with open("my_report.json", "w", encoding="utf-8") as f:
         json.dump(transaction_list, f, ensure_ascii=False, indent=4, default=str)
 
-
-if __name__ == "__main__":
-    main()
