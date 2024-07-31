@@ -1,13 +1,16 @@
 import functools
 import json
 from typing import Any
-from src.utils import logger
+
 import pandas as pd
 from dateutil.relativedelta import relativedelta
+
+from src.utils import logger
 
 
 def save_report_to_file(filename: str = None) -> Any:
     """Декоратор для функции, сохраняет результат в файл my_report.json"""
+
     def decorator(func: Any) -> Any:
         @functools.wraps(func)
         def wrapper(last_three_months: pd.DataFrame) -> Any:
@@ -26,6 +29,8 @@ def save_report_to_file(filename: str = None) -> Any:
 
 def spending_by_category(excel_list: pd.DataFrame, search_category: str, user_date_input: str = None) -> Any:
     """Функция фильтрует полученный список согласно полученным параметрам"""
+    if excel_list.empty:
+        return pd.DataFrame()
     logger.info("Начинаем фильтрацию транзакций по категории и дате")
     # Если дата не передана, то берется текущая дата
     if user_date_input is None:
